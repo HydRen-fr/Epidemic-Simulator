@@ -376,7 +376,7 @@ while True:
     collisions_en_cours = [(i, j) for (i, j) in collisions_en_cours if i.detecter_collision(j)]
 
     # Tester les collisions entre les individus et mettre à jour les couleurs en cas de collision.
-    ind_no_quarantaine = [ind for ind in ind_no_quarantaine if ind.est_en_quarantaine == False]
+    ind_no_quarantaine = [ind for ind in individus if ind.est_en_quarantaine == False]
     for i in range(len(ind_no_quarantaine)):
         for j in range(i + 1, len(ind_no_quarantaine)):
             if (ind_no_quarantaine[i], ind_no_quarantaine[j]) not in collisions_en_cours and ind_no_quarantaine[i].detecter_collision(ind_no_quarantaine[j]):
