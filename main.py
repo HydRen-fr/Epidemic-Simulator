@@ -92,9 +92,9 @@ while True:
 
     # Mettre à jour l'affichage de la simulation.
     pygame.display.flip()
-'''
 
-'''
+
+
 # V4 - Sans quarantaine
 
 import pygame
@@ -221,23 +221,25 @@ while True:
 
 # V5 - Quarantaine
 
-import pygame
-import random
-import sys
+# Importation des modules nécessaires.
+import pygame  # Bibliothèque pour la création de jeux-vidéos.
+import random  # Module pour la génération de nombres aléatoires.
+import sys  # Module fournissant un accès à certaines variables utilisées ou maintenues par l'interprétateur python.
 
-# Constantes
-LARGEUR_ECRAN = 800
-HAUTEUR_ECRAN = 600
-COULEUR_MUR = (0, 0, 0)  # Noir
-COULEUR_FOND = (255, 255, 255)  # Blanc
-TAILLE_CARRE = 300
-TAILLE_INDIVIDU = 4
-NB_INDIVIDUS = 20
-VITESSE_MAX = 0.1
-TAUX_INFECTIOSITE = 0.4
+# Constantes définissant les paramètres du programme.
+LARGEUR_ECRAN = 800  # Largeur de la fenêtre de la simulation.
+HAUTEUR_ECRAN = 600  # Hauteur de la fenêtre de la simulation.
+COULEUR_MUR = (0, 0, 0)  # Couleur des bords de la fenêtre de la simulation (en noir).
+COULEUR_FOND = (255, 255, 255)  # Couleur du fond de la fenêtre de la simulation (en blanc).
+TAILLE_CARRE = 300  # Taille du cadre où les individus évoluent.
+TAILLE_INDIVIDU = 4  # Taille des individus représentés par des points.
+NB_INDIVIDUS = 20  # Nombre total d'individus dans la simulation.
+VITESSE_MAX = 0.1  # Vitesse maximale des individus.
+TAUX_INFECTIOSITE = 0.4  # La probabilité d'être infecté.
 
 # Pour le carré de quarantaine
-TAILLE_QUARANTAINE = 100
+TAILLE_QUARANTAINE = 100  # Taille du cadre de la quarantaine.
+# Placement des individus dans la quarantaine.
 EMPLACEMENT_QUARANTAINE_X = ((LARGEUR_ECRAN - TAILLE_CARRE) // 2) + 380
 EMPLACEMENT_QUARANTAINE_Y = ((HAUTEUR_ECRAN - TAILLE_CARRE) // 2)
 
@@ -249,6 +251,7 @@ pygame.font.init()
 ecran = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
 pygame.display.set_caption("Simulation d'épidémie")
 
+# Définition de la classe représentant un individu dans la simulation.
 class Individu:
     def __init__(self, x, y, taille, couleur):
         self.x = x
@@ -288,6 +291,7 @@ class Individu:
                 self.y = random.uniform((HAUTEUR_ECRAN - TAILLE_CARRE) // 2 + TAILLE_INDIVIDU, (HAUTEUR_ECRAN + TAILLE_CARRE) // 2 - TAILLE_INDIVIDU)
 
     def rebondir_sur_murs_quarantaine(self):
+        # Vérifier si l'individu atteint les bords du cadre de la quarantaine et les fait rebondir en conséquence.
         if self.x - self.taille < EMPLACEMENT_QUARANTAINE_X or self.x + self.taille > EMPLACEMENT_QUARANTAINE_X + TAILLE_QUARANTAINE:
             self.vitesse_x = -self.vitesse_x
         if self.y - self.taille < EMPLACEMENT_QUARANTAINE_Y or self.y + self.taille > EMPLACEMENT_QUARANTAINE_Y + TAILLE_QUARANTAINE:
@@ -298,6 +302,7 @@ class Individu:
         self.y += self.vitesse_y
 
     def rebondir_sur_murs(self):
+        # Vérifier si l'individu atteint les bords du cadre et les fait rebondir en conséquence.
         if not self.est_en_quarantaine:
             if self.x - self.taille < (LARGEUR_ECRAN - TAILLE_CARRE) // 2 or self.x + self.taille > (LARGEUR_ECRAN + TAILLE_CARRE) // 2:
                 self.vitesse_x = -self.vitesse_x
@@ -307,31 +312,33 @@ class Individu:
             self.rebondir_sur_murs_quarantaine()
 
     def detecter_collision(self, autre_individu):
+        # Calculer la distance entre deux individus et tester s'ils entrent en collision.
         distance = ((self.x - autre_individu.x) ** 2 + (self.y - autre_individu.y) ** 2) ** 0.5
         return distance <= self.taille + autre_individu.taille
 
     def infecter(self):
-        self.couleur = (255, 0, 0)  # Rouge (infecté)
+        self.couleur = (255, 0, 0)  # Couleur d'un individu qui est infecté (en rouge).
 
     def progresser_guerison(self):
-        if self.couleur == (255, 0, 0):  # Si infecté
+        # Vérifier quand l'individu infecté pourra être guéri.
+        if self.couleur == (255, 0, 0):  # Si l'individu est infecté.
             self.temps_infecte += 1
             if self.temps_infecte >= self.temps_guerison:
-                self.couleur = (0, 255, 0)  # Vert (guéri)
+                self.couleur = (0, 255, 0)  # Couleur de l'individu guéri (en vert).
                 self.temps_infecte = 0
 
 
-# Création d'une liste d'Individus avec un individu initial infecté
+# # Création d'une liste d'individus pour la simulation.
 individus = [Individu(
     random.randint((LARGEUR_ECRAN - TAILLE_CARRE) // 2 + TAILLE_INDIVIDU, (LARGEUR_ECRAN + TAILLE_CARRE) // 2 - TAILLE_INDIVIDU),
     random.randint((HAUTEUR_ECRAN - TAILLE_CARRE) // 2 + TAILLE_INDIVIDU, (HAUTEUR_ECRAN + TAILLE_CARRE) // 2 - TAILLE_INDIVIDU),
     TAILLE_INDIVIDU,
-    (255, 0, 0)  # Rouge (infecté)
+    (255, 0, 0)  # # Couleur pour le premier individu (en rouge).
 )] + [Individu(
     random.randint((LARGEUR_ECRAN - TAILLE_CARRE) // 2 + TAILLE_INDIVIDU, (LARGEUR_ECRAN + TAILLE_CARRE) // 2 - TAILLE_INDIVIDU),
     random.randint((HAUTEUR_ECRAN - TAILLE_CARRE) // 2 + TAILLE_INDIVIDU, (HAUTEUR_ECRAN + TAILLE_CARRE) // 2 - TAILLE_INDIVIDU),
     TAILLE_INDIVIDU,
-    (0, 0, 255)  # Bleu (non infecté)
+    (0, 0, 255)  # Couleur pour les autres individus (en bleu).
 ) for _ in range(NB_INDIVIDUS - 1)]
 
 
@@ -339,24 +346,24 @@ individus = [Individu(
 # Liste des couples d'individus en collision
 collisions_en_cours = []
 
-# Boucle principale
+# Boucle principale de la simulation.
 while True:
-    # Quitter sans problèmes en fermant la fenêtre
+    # Quitter sans problèmes en fermant la fenêtre.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-    # Dessiner le fond blanc
+    # Dessiner le fond blanc.
     ecran.fill(COULEUR_FOND)
 
-    # Dessiner le carré noir
+    # Dessiner le cadre noir.
     pygame.draw.rect(ecran, COULEUR_MUR, pygame.Rect((LARGEUR_ECRAN - TAILLE_CARRE) // 2, (HAUTEUR_ECRAN - TAILLE_CARRE) // 2, TAILLE_CARRE, TAILLE_CARRE), 2)
 
-    # Dessiner le carré de quarantaine
+    # Dessiner le cadre de la quarantaine.
     pygame.draw.rect(ecran, COULEUR_MUR, pygame.Rect(EMPLACEMENT_QUARANTAINE_X, EMPLACEMENT_QUARANTAINE_Y, TAILLE_QUARANTAINE, TAILLE_QUARANTAINE), 2)
 
-    # Déplacer et faire rebondir les Individus
+    # Déplacer et faire rebondir les individus dans le cadre.
     for individu in individus:
         individu.progresser_guerison()
         individu.placer_en_quarantaine()
@@ -368,17 +375,14 @@ while True:
     # Vérifier les collisions en cours
     collisions_en_cours = [(i, j) for (i, j) in collisions_en_cours if i.detecter_collision(j)]
 
-    # Tester les collisions et mettre à jour les couleurs
+    # Tester les collisions entre les individus et mettre à jour les couleurs en cas de collision.
     for i in range(len(individus)):
         for j in range(i + 1, len(individus)):
             if (individus[i], individus[j]) not in collisions_en_cours and individus[i].detecter_collision(individus[j]):
                 collisions_en_cours.append((individus[i], individus[j]))
-                # L'un des deux est rouge
+                # L'un des deux individus est infecté (en rouge).
                 if individus[i].couleur == (255, 0, 0) or individus[j].couleur == (255, 0, 0):
-                    # Utiliser random.random() pour générer un nombre entre 0 et 1
+                    # Utiliser random.random() pour générer un nombre entre 0 et 1.
                     if random.random() < TAUX_INFECTIOSITE:
-                        individus[i].couleur, individus[j].couleur = (255, 0, 0), (255, 0, 0)  # Rouges tous les deux
-
-    # Mettre à jour l'affichage
-    pygame.display.flip()
+                        individus[i].couleur, individus[j].couleur = (255, 0, 0), (255, 0, 0)  # Les deux individus sont infectés (en rouge).
 
