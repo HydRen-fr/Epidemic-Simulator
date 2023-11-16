@@ -387,3 +387,5 @@ while True:
                     if random.random() < TAUX_INFECTIOSITE:
                         ind_no_quarantaine[i].infecter(), ind_no_quarantaine[j].infecter()  # Rouges tous les deux
 
+    # Mettre à jour l'affichage
+    pygame.display.flip()
