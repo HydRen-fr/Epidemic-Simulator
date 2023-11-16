@@ -376,13 +376,14 @@ while True:
     collisions_en_cours = [(i, j) for (i, j) in collisions_en_cours if i.detecter_collision(j)]
 
     # Tester les collisions entre les individus et mettre à jour les couleurs en cas de collision.
-    for i in range(len(individus)):
-        for j in range(i + 1, len(individus)):
-            if (individus[i], individus[j]) not in collisions_en_cours and individus[i].detecter_collision(individus[j]):
-                collisions_en_cours.append((individus[i], individus[j]))
-                # L'un des deux individus est infecté (en rouge).
-                if individus[i].couleur == (255, 0, 0) or individus[j].couleur == (255, 0, 0):
-                    # Utiliser random.random() pour générer un nombre entre 0 et 1.
+    ind_no_quarantaine = [ind for ind in ind_no_quarantaine if ind.est_en_quarantaine == False]
+    for i in range(len(ind_no_quarantaine)):
+        for j in range(i + 1, len(ind_no_quarantaine)):
+            if (ind_no_quarantaine[i], ind_no_quarantaine[j]) not in collisions_en_cours and ind_no_quarantaine[i].detecter_collision(ind_no_quarantaine[j]):
+                collisions_en_cours.append((ind_no_quarantaine[i], ind_no_quarantaine[j]))
+                # L'un des deux est rouge
+                if ind_no_quarantaine[i].couleur == (255, 0, 0) or ind_no_quarantaine[j].couleur == (255, 0, 0):
+                    # Utiliser random.random() pour générer un nombre entre 0 et 1
                     if random.random() < TAUX_INFECTIOSITE:
-                        individus[i].couleur, individus[j].couleur = (255, 0, 0), (255, 0, 0)  # Les deux individus sont infectés (en rouge).
+                        ind_no_quarantaine[i].infecter(), ind_no_quarantaine[j].infecter()  # Rouges tous les deux
 
