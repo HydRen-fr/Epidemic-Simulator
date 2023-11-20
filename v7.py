@@ -20,8 +20,7 @@ NB_INDIVIDUS = 100  # Nombre total d'individus dans la simulation
 VITESSE_MAX = 0.1  # Vitesse maximale des individus. Influence la propagation.
 TAUX_INFECTIOSITE = 0.3  # La probabilité d'être infecté
 TAUX_ASYMPTOMATIQUES = 0.2  # La probabilité d'être asymptomatique et jamais envoyé en quarantaine. Entre 0 et 1.
-RAYON_DISTANCIATION = 0 # Rayon pour la distanciation sociale. Recommandé à 10 ou 0.
-                        # Attention si c'est au-delà d'un certain nombre il y a tellement de distance que ça fait l'effet inverse.
+RAYON_DISTANCIATION = True # Distanciation sociale ou pas (difficile de le faire modulable)
 LETALITE = 0.3 # Chances de mourir du virus
 
 
@@ -50,7 +49,7 @@ pygame.font.init()
 
 # Création de la fenêtre
 ecran = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
-pygame.display.set_caption("Simulation d'épidémie")
+pygame.display.set_caption("Epydemie")
 
 
 
@@ -160,10 +159,10 @@ class Individu:
         for autre in autres_individus:
             if autre != self:
                 distance = ((self.x - autre.x) ** 2 + (self.y - autre.y) ** 2) ** 0.5
-                if distance < RAYON_DISTANCIATION:
+                if distance < 10:
                     angle = random.uniform(0, 2 * math.pi)
-                    deplacement_x = RAYON_DISTANCIATION * math.cos(angle)
-                    deplacement_y = RAYON_DISTANCIATION * math.sin(angle)
+                    deplacement_x = 10 * math.cos(angle)
+                    deplacement_y = 10 * math.sin(angle)
                     self.x += deplacement_x
                     self.y += deplacement_y
 
@@ -226,10 +225,11 @@ while True:
     # Filtrer les individus en vie
     individus = [ind for ind in individus if ind.vie]
 
-    # Appliquer la distanciation sociale
-    for individu in individus:
-        if individu.est_en_quarantaine == False:
-            individu.appliquer_distanciation(individus)
+    # Appliquer la distanciation sociale si c'est demandé
+    if RAYON_DISTANCIATION:
+        for individu in individus:
+            if individu.est_en_quarantaine == False:
+                individu.appliquer_distanciation(individus)
 
     # Déplacer et faire rebondir les individus dans le cadre
     for individu in individus:
