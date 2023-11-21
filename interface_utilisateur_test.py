@@ -9,13 +9,21 @@ window_surface = pygame.display.set_mode((800, 600))
 
 # Initialisation du gestionnaire d'interface Pygame GUI
 manager = pygame_gui.UIManager((800, 600))
+img = pygame.image.load('gear_icon.png')
+
+
+img1 = pygame_gui.elements.UIImage(pygame.Rect((50, 50), (50, 50)),
+                                   img,
+                                   manager)
+img2 = img1.set_image(img) 
+
 
 # Ajout d'un bouton avec une image d'engrenage
 settings_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 50), (50, 50)),
                                                text='',
                                                manager=manager,
                                                container=None)
-settings_button.set_image('gear_icon.png')  # Assure-toi d'avoir une image nommée 'gear_icon.png'
+settings_button.set_image(img2)  # Assure-toi d'avoir une image nommée 'gear_icon.png'
 
 # Liste des noms pour les boutons supplémentaires
 button_names = ['Bouton {}'.format(i) for i in range(1, 11)]
