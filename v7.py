@@ -149,7 +149,6 @@ class Individu:
                 if random.random() < LETALITE:
                     self.vie = False  # L'individu décède
                     nb_morts += 1
-                    print(nb_morts)
                 else:
                     self.couleur = (0, 255, 0)  # Couleur de l'individu guéri (en vert)
                     self.temps_infecte = 0
@@ -317,8 +316,8 @@ while True:
     # Indications pour les valeurs des courbes
     text_100p = font.render("100%", True, (0, 0, 0))
     text_0p = font.render("0%", True, (0, 0, 0))
-    ecran.blit(text_100p, (10, 750))
-    ecran.blit(text_0p, (10, 960))
+    ecran.blit(text_100p, (10, HAUTEUR_ECRAN - 250))
+    ecran.blit(text_0p, (10, HAUTEUR_ECRAN - 35))
 
 
 
