@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-
+import sys
 pygame.init()
 
 # Initialisation de Pygame
@@ -46,7 +46,8 @@ while is_running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            is_running = False
+            pygame.quit()
+            sys.exit()
 
         # Gestion des événements pour le gestionnaire d'interface
         manager.process_events(event)
