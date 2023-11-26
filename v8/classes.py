@@ -113,7 +113,7 @@ class Individu:
                         self.y += deplacement_y
 
 
-# Les méthodes statiques peuvent être appelées sans objet de leur classe.
+# Les méthodes statiques peuvent être appelées sans un objet de leur classe.
 
 class Guerison:
     @staticmethod
