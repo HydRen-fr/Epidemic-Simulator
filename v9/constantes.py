@@ -1,13 +1,13 @@
 # Constantes non paramétrables par l'utilisateur
 
-LARGEUR_ECRAN = 1600  # Largeur de la fenêtre de la simulation
-HAUTEUR_ECRAN = 1000  # Hauteur de la fenêtre de la simulation
+LARGEUR_ECRAN = 1450  # Largeur de la fenêtre de la simulation
+HAUTEUR_ECRAN = 900  # Hauteur de la fenêtre de la simulation
 COULEUR_MUR = (0, 0, 0)  # Couleur des bords de la fenêtre de la simulation (en noir)
 COULEUR_FOND = (255, 255, 255)  # Couleur du fond de la fenêtre de la simulation (en blanc)
 TAILLE_INDIVIDU = 4  # Taille des individus représentés par des points
 
 # Grand carré
-TAILLE_CARRE = 600
+TAILLE_CARRE = 500
 EMPLACEMENT_CARRE_X = (LARGEUR_ECRAN - TAILLE_CARRE) // 2
 EMPLACEMENT_CARRE_Y = (HAUTEUR_ECRAN - TAILLE_CARRE) // 2 - 100
 # Conjugués des emplacements (signe inverse)
@@ -23,7 +23,7 @@ EMPLACEMENT_QUARANTAINE_Y = EMPLACEMENT_CARRE_Y
 TAILLE_VILLE = TAILLE_CARRE // 7
 EMPLACEMENT_VILLE_X = (EMPLACEMENT_CARRE_X + EMPLACEMENT_CARRE_X_CONJ - TAILLE_VILLE) // 2
 EMPLACEMENT_VILLE_Y = (EMPLACEMENT_CARRE_Y + EMPLACEMENT_CARRE_Y_CONJ - TAILLE_VILLE) // 2
-TAILLE_COMMUNAUTE = TAILLE_CARRE // 3 # Donne du 3x3
+TAILLE_COMMUNAUTE = TAILLE_CARRE // 3 # Donne une grille 3x3
 
 
 

@@ -10,19 +10,19 @@ import le_cosmos
 parametres_de_base = {
         "NB_INDIVIDUS": 135,  # Nombre total d'individus dans la simulation
         "VITESSE_MAX": 0.15,  # Vitesse maximale des individus. Influence la propagation.
-        "TAUX_INFECTIOSITE": 0.2,  # La probabilité d'être infecté. Entre 0 et 1.
-        "TAUX_ASYMPTOMATIQUES": 0.1,  # La probabilité d'être asymptomatique et jamais envoyé en quarantaine. Entre 0 et 1.
-        "LETALITE": 0.3,  # Chances de mourir du virus
-        "LA_QUARANTAINE": False,  # Quarantaine ou pas
+        "TAUX_INFECTIOSITE": 0.15,  # La probabilité d'être infecté. Entre 0 et 1.
+        "TAUX_ASYMPTOMATIQUES": 0.55,  # La probabilité d'être asymptomatique et jamais envoyé en quarantaine. Entre 0 et 1.
+        "LETALITE": 0.2,  # Chances de mourir du virus
+        "LA_QUARANTAINE": True,  # Quarantaine ou pas
         "RAYON_DISTANCIATION": False,  # Distanciation sociale ou pas (difficile de le faire modulable)
         "TAUX_DISSIDENTS": 0.2,  # La probabilité d'être un individu qui n'écoute pas les consignes de distanciation
         # Modes de simulation
         "VILLE_CENTRALE": False,  # Activer le mode "Ville centrale"
         "COMMUNAUTES": False,  # Activer le mode "Communautés"
-        "PROBABILITE_VOYAGE_VERS_VILLE": 0.009,  # Probabilité de voyage vers la ville
-        # Doit être très basse car les tours de boucle s'enchaînent très vite
-        "PROBABILITE_VOYAGE_VERS_COMMUNAUTE": 0.0006,  # Probabilité de voyage vers une autre communauté
-        # Doit être très basse car les tours de boucle s'enchaînent très vite
+        "PROBABILITE_VOYAGE_VERS_VILLE": 0.9,  # Probabilité de voyage vers la ville
+        # Doit être très basse car les tours de boucle s'enchaînent très vite --> 10**-2
+        "PROBABILITE_VOYAGE_VERS_COMMUNAUTE": 0.6,  # Probabilité de voyage vers une autre communauté
+        # Doit être très basse car les tours de boucle s'enchaînent très vite --> 10**-3
         }
 
 
@@ -76,23 +76,23 @@ class Parametres:
         self.create_ui()
 
     def create_ui(self):
-        self.y_offset = 150
+        self.y_offset = 120
         self.elements = []
 
         for index, (nvar, label, min_val, max_val, default_val) in enumerate(self.constantes_liste):
             label_text = f"{label}: {nvar}"
 
             if isinstance(default_val, bool):
-                button_rect = pygame.Rect((460, self.y_offset), (350, 30))
+                button_rect = pygame.Rect((420, self.y_offset), (350, 30))
                 button_value = default_val
                 button = UIButton(button_rect, f"{label}: {'Oui' if button_value else 'Non'}", self.ui_manager, None, object_id=f'#bool_button_{index}')
                 self.elements.append((button, None, index, label, nvar))
             else:
-                slider_rect = pygame.Rect((460, self.y_offset), (300, 30))
+                slider_rect = pygame.Rect((420, self.y_offset), (300, 30))
                 slider = UIHorizontalSlider(slider_rect, default_val, (min_val, max_val), self.ui_manager, None)
                 slider.set_current_value(default_val)
 
-                value_label_rect = pygame.Rect((710, self.y_offset), (620, 30))
+                value_label_rect = pygame.Rect((670, self.y_offset), (770, 30))
                 value_label = UILabel(value_label_rect, label_text, self.ui_manager, None, object_id='#slider_label')
                 self.elements.append((slider, value_label, index, label, nvar))
 

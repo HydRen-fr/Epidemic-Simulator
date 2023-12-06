@@ -11,13 +11,13 @@ import prevention
 import stats
 
 import lancer_interface
-from pygame.locals import MOUSEBUTTONDOWN
+from pygame.locals import MOUSEBUTTONDOWN # Checker les clics
 
 
-# Initialisation du module Pygame display manuellement
+# Initialisation du module pygame display manuellement. Peut éviter des bugs.
 pygame.display.init()
 
-# Création de la fenêtre
+# Création de la fenêtre de simulation
 ecran = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
 pygame.display.set_caption("Epydemie")
 
@@ -25,11 +25,18 @@ pygame.display.set_caption("Epydemie")
 class Cosmos:
     def __init__(self, les_parametres):
         # On stocke en attribut les paramètres qui seront les constantes de la simulation
-        self.constantes_parametrables = les_parametres
+        # dict() évite une erreur mémoire
+        self.constantes_parametrables = dict(les_parametres)
+        # Ajustements pour la simulation
+        self.constantes_parametrables["PROBABILITE_VOYAGE_VERS_VILLE"] *= 10**-2
+        # Doit être très basse car les tours de boucle s'enchaînent très vite --> 10**-2
+        self.constantes_parametrables["PROBABILITE_VOYAGE_VERS_COMMUNAUTE"] *= 10**-3
+        # Encore plus ici --> 10**-3
 
-        # Paramètres changés ou pas
+        # Paramètres changés ou pas - condition while
         self.pas_de_changements = True
         
+        # Si demandé on active la grille des communautés
         if self.constantes_parametrables["COMMUNAUTES"]:
             self.nb_communautes_x = TAILLE_CARRE // TAILLE_COMMUNAUTE
             self.nb_communautes_y = TAILLE_CARRE // TAILLE_COMMUNAUTE
@@ -40,12 +47,9 @@ class Cosmos:
 
         # Liste des couples d'individus en collision
         self.collisions_en_cours = []
+
         # Compteur des individus morts
         self.nb_morts = 0
-
-        self.stats = stats.Stats()
-
-        self.parametres = lancer_interface.Parametres(les_parametres)
 
         # Chargement de l'image du bouton et redimensionnement
         original_button_image = pygame.image.load("doc/parametres.png")
@@ -56,6 +60,10 @@ class Cosmos:
         # Utilisation des constantes pour placer l'image en haut à droite
         self.button_rect = self.button_image.get_rect()
         self.button_rect.topright = (LARGEUR_ECRAN-10, 10)
+
+
+        self.stats = stats.Stats()
+        self.parametres = lancer_interface.Parametres(les_parametres)
 
 
     def initialiser_individus(self):
@@ -69,7 +77,7 @@ class Cosmos:
                 y = random.uniform(communaute_y, communaute_y + TAILLE_COMMUNAUTE - TAILLE_INDIVIDU)
                 couleur = (0, 0, 255)  # Bleu par défaut
                 if i == 0:
-                    couleur = (255, 0, 0)  # Rouge pour le premier individu (infecté)
+                    couleur = (255, 0, 0)  # Rouge pour le premier individu infecté
                 individus.append(les_individus.Individu(x, y, TAILLE_INDIVIDU, couleur, self))
 
 
@@ -80,7 +88,7 @@ class Cosmos:
                     random.randint(EMPLACEMENT_CARRE_X + TAILLE_INDIVIDU, EMPLACEMENT_CARRE_X_CONJ - TAILLE_INDIVIDU),
                     random.randint(EMPLACEMENT_CARRE_Y + TAILLE_INDIVIDU, EMPLACEMENT_CARRE_Y_CONJ - TAILLE_INDIVIDU),
                     TAILLE_INDIVIDU,
-                    (255, 0, 0),  # Couleur pour le premier individu (en rouge)
+                    (255, 0, 0),  # Rouge pour le premier individu infecté
                     self,
                 )
             ] + [
@@ -88,7 +96,7 @@ class Cosmos:
                     random.randint(EMPLACEMENT_CARRE_X + TAILLE_INDIVIDU, EMPLACEMENT_CARRE_X_CONJ - TAILLE_INDIVIDU),
                     random.randint(EMPLACEMENT_CARRE_Y + TAILLE_INDIVIDU, EMPLACEMENT_CARRE_Y_CONJ - TAILLE_INDIVIDU),
                     TAILLE_INDIVIDU,
-                    (0, 0, 255),  # Couleur pour les autres individus (en bleu)
+                    (0, 0, 255),  # Bleu par défaut
                     self,
                 ) for _ in range(self.constantes_parametrables["NB_INDIVIDUS"] - 1)
             ]
