@@ -28,10 +28,13 @@ class Cosmos:
         # dict() évite une erreur mémoire
         self.constantes_parametrables = dict(les_parametres)
         # Ajustements pour la simulation
+        # On veut laisser les nombres dans une échelle compréhensible
+        # Mais parfois l'échelle de 0 à 1 ne convient pas à la simulation et à
+        # La réalité qu'on souhaite reproduire
+        self.constantes_parametrables["VITESSE_MAX"] *= 1/3
+        self.constantes_parametrables["TAUX_INFECTIOSITE"] *= 1/4
         self.constantes_parametrables["PROBABILITE_VOYAGE_VERS_VILLE"] *= 10**-2
-        # Doit être très basse car les tours de boucle s'enchaînent très vite --> 10**-2
         self.constantes_parametrables["PROBABILITE_VOYAGE_VERS_COMMUNAUTE"] *= 10**-3
-        # Encore plus ici --> 10**-3
 
         # Paramètres changés ou pas - condition while
         self.pas_de_changements = True

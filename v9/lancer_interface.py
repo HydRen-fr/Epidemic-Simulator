@@ -9,8 +9,8 @@ import le_cosmos
 # Via l'interface utilisateur
 parametres_de_base = {
         "NB_INDIVIDUS": 135,  # Nombre total d'individus dans la simulation
-        "VITESSE_MAX": 0.15,  # Vitesse maximale des individus. Influence la propagation.
-        "TAUX_INFECTIOSITE": 0.15,  # La probabilité d'être infecté. Entre 0 et 1.
+        "VITESSE_MAX": 0.5,  # Vitesse maximale des individus. Influence la propagation.
+        "TAUX_INFECTIOSITE": 0.5,  # La probabilité d'être infecté. Entre 0 et 1.
         "TAUX_ASYMPTOMATIQUES": 0.55,  # La probabilité d'être asymptomatique et jamais envoyé en quarantaine. Entre 0 et 1.
         "LETALITE": 0.2,  # Chances de mourir du virus
         "LA_QUARANTAINE": True,  # Quarantaine ou pas
@@ -19,7 +19,7 @@ parametres_de_base = {
         # Modes de simulation
         "VILLE_CENTRALE": False,  # Activer le mode "Ville centrale"
         "COMMUNAUTES": False,  # Activer le mode "Communautés"
-        "PROBABILITE_VOYAGE_VERS_VILLE": 0.9,  # Probabilité de voyage vers la ville
+        "PROBABILITE_VOYAGE_VERS_VILLE": 0.5,  # Probabilité de voyage vers la ville
         # Doit être très basse car les tours de boucle s'enchaînent très vite --> 10**-2
         "PROBABILITE_VOYAGE_VERS_COMMUNAUTE": 0.6,  # Probabilité de voyage vers une autre communauté
         # Doit être très basse car les tours de boucle s'enchaînent très vite --> 10**-3
@@ -43,6 +43,7 @@ class Parametres:
         self.ui_manager = pygame_gui.UIManager((LARGEUR_ECRAN, HAUTEUR_ECRAN))
         self.ui_manager.get_theme().load_theme('v9/horizontal_slider.json')
         self.ui_manager.get_theme().load_theme('v9/slider_label.json')
+        self.ui_manager.get_theme().load_theme('v9/bool_button.json')
         
 
         self.label_mini_maxi = [
@@ -57,7 +58,7 @@ class Parametres:
             ("Ville centrale", None, None),
             ("Communautés", None, None),
             ("Probabilité de voyage vers la ville", 0, 1),
-            ("Probabilité de voyage vers une communauté", 0, 1)
+            ("Probabilité de voyage vers une autre communauté", 0, 1)
         ]
 
         self.constantes_liste = [
@@ -90,16 +91,22 @@ class Parametres:
             if isinstance(default_val, bool):
                 button_rect = pygame.Rect((380, self.y_offset), (350, 30))
                 button_value = default_val
-                button = UIButton(button_rect, f"{label}: {'OUI' if button_value else 'NON'}", self.ui_manager, None, object_id=f'#bool_button_{index}')
+                button = UIButton(button_rect, f"{label} - {'OUI' if button_value else 'NON'}", self.ui_manager, None, object_id=f'#bool_button_{index}')
                 self.elements.append((button, None, index, label, nvar))
             else:
                 slider_rect = pygame.Rect((380, self.y_offset), (300, 30))
                 slider = UIHorizontalSlider(slider_rect, default_val, (min_val, max_val), self.ui_manager, None, object_id='#horizontal_slider')
                 slider.set_current_value(default_val)
 
-                value_label_rect = pygame.Rect((630, self.y_offset), (770, 30))
+                value_label_rect = pygame.Rect((630, self.y_offset), (830, 30))
                 value_label = UILabel(value_label_rect, label_text, self.ui_manager, None, object_id='#slider_label')
                 self.elements.append((slider, value_label, index, label, nvar))
+
+                min_label_rect = pygame.Rect((345, self.y_offset), (30, 30))
+                min_label = UILabel(min_label_rect, str(min_val), self.ui_manager, None, object_id='#slider_label')
+
+                max_label_rect = pygame.Rect((685, self.y_offset), (30, 30))
+                max_label = UILabel(max_label_rect, str(max_val), self.ui_manager, None, object_id='#slider_label')
 
             self.y_offset += 60
 
@@ -115,7 +122,7 @@ class Parametres:
                 if element.check_pressed():
                     # Inverser le booléen
                     self.nvar_current_values[nvar] = not self.nvar_current_values[nvar]
-                    element.set_text(f"{label}: {'OUI' if self.nvar_current_values[nvar] else 'NON'}")
+                    element.set_text(f"{label} - {'OUI' if self.nvar_current_values[nvar] else 'NON'}")
             elif isinstance(element, UIHorizontalSlider):
                 self.nvar_current_values[nvar] = round(element.get_current_value(), 2)
                 value_label.set_text(f"{label}: {self.nvar_current_values[nvar]}")
@@ -149,8 +156,8 @@ class Parametres:
             # Dessiner la flèche retour
             le_cosmos.ecran.blit(self.arrow_image, self.arrow_rect)
             # Titre explicite
-            titre = self.font.render("Paramètres de la simulation", True, (0, 0, 0))
-            le_cosmos.ecran.blit(titre, (LARGEUR_ECRAN//2 - 255, 30))
+            titre = self.font.render("Paramètres modulables", True, (0, 0, 0))
+            le_cosmos.ecran.blit(titre, (LARGEUR_ECRAN//2 - 230, 30))
             # Le reste
             self.ui_manager.draw_ui(le_cosmos.ecran)
 
