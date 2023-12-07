@@ -37,8 +37,13 @@ class Parametres:
     def __init__(self, derniers_params_utilises):
         pygame.init()
 
+        # Police pour écrire
+        self.font = pygame.font.Font(None, 60)
+
         self.ui_manager = pygame_gui.UIManager((LARGEUR_ECRAN, HAUTEUR_ECRAN))
-        self.ui_manager.get_theme().load_theme('v9/theme.json')
+        self.ui_manager.get_theme().load_theme('v9/horizontal_slider.json')
+        self.ui_manager.get_theme().load_theme('v9/slider_label.json')
+        
 
         self.label_mini_maxi = [
             ("Nombre d'individus", 1, 270),
@@ -83,16 +88,16 @@ class Parametres:
             label_text = f"{label}: {nvar}"
 
             if isinstance(default_val, bool):
-                button_rect = pygame.Rect((420, self.y_offset), (350, 30))
+                button_rect = pygame.Rect((380, self.y_offset), (350, 30))
                 button_value = default_val
-                button = UIButton(button_rect, f"{label}: {'Oui' if button_value else 'Non'}", self.ui_manager, None, object_id=f'#bool_button_{index}')
+                button = UIButton(button_rect, f"{label}: {'OUI' if button_value else 'NON'}", self.ui_manager, None, object_id=f'#bool_button_{index}')
                 self.elements.append((button, None, index, label, nvar))
             else:
-                slider_rect = pygame.Rect((420, self.y_offset), (300, 30))
-                slider = UIHorizontalSlider(slider_rect, default_val, (min_val, max_val), self.ui_manager, None)
+                slider_rect = pygame.Rect((380, self.y_offset), (300, 30))
+                slider = UIHorizontalSlider(slider_rect, default_val, (min_val, max_val), self.ui_manager, None, object_id='#horizontal_slider')
                 slider.set_current_value(default_val)
 
-                value_label_rect = pygame.Rect((670, self.y_offset), (770, 30))
+                value_label_rect = pygame.Rect((630, self.y_offset), (770, 30))
                 value_label = UILabel(value_label_rect, label_text, self.ui_manager, None, object_id='#slider_label')
                 self.elements.append((slider, value_label, index, label, nvar))
 
@@ -110,7 +115,7 @@ class Parametres:
                 if element.check_pressed():
                     # Inverser le booléen
                     self.nvar_current_values[nvar] = not self.nvar_current_values[nvar]
-                    element.set_text(f"{label}: {'Oui' if self.nvar_current_values[nvar] else 'Non'}")
+                    element.set_text(f"{label}: {'OUI' if self.nvar_current_values[nvar] else 'NON'}")
             elif isinstance(element, UIHorizontalSlider):
                 self.nvar_current_values[nvar] = round(element.get_current_value(), 2)
                 value_label.set_text(f"{label}: {self.nvar_current_values[nvar]}")
@@ -141,8 +146,12 @@ class Parametres:
 
             # Écran blanc
             le_cosmos.ecran.fill((255, 255, 255))
-            # Dessiner la flèche retour et le reste
+            # Dessiner la flèche retour
             le_cosmos.ecran.blit(self.arrow_image, self.arrow_rect)
+            # Titre explicite
+            titre = self.font.render("Paramètres de la simulation", True, (0, 0, 0))
+            le_cosmos.ecran.blit(titre, (LARGEUR_ECRAN//2 - 255, 30))
+            # Le reste
             self.ui_manager.draw_ui(le_cosmos.ecran)
 
             pygame.display.flip()
