@@ -137,16 +137,17 @@ class Cosmos:
             if self.constantes_parametrables["LA_QUARANTAINE"]:
                 # Dessiner le cadre de la quarantaine
                 pygame.draw.rect(ecran, COULEUR_MUR, pygame.Rect(EMPLACEMENT_QUARANTAINE_X, EMPLACEMENT_QUARANTAINE_Y, TAILLE_QUARANTAINE, TAILLE_QUARANTAINE), 2)
+            if not self.constantes_parametrables["COMMUNAUTES"]:
+                # Dessiner le cadre noir
+                pygame.draw.rect(ecran, COULEUR_MUR, pygame.Rect(EMPLACEMENT_CARRE_X, EMPLACEMENT_CARRE_Y, TAILLE_CARRE, TAILLE_CARRE), 2)
             if self.constantes_parametrables["COMMUNAUTES"]:
                 # Dessiner les communautés
                 for communaute_x, communaute_y in self.communautes:
                     pygame.draw.rect(ecran, COULEUR_MUR, pygame.Rect(communaute_x, communaute_y, TAILLE_COMMUNAUTE, TAILLE_COMMUNAUTE), 2)
-            else:
-                # Dessiner le cadre noir
-                pygame.draw.rect(ecran, COULEUR_MUR, pygame.Rect(EMPLACEMENT_CARRE_X, EMPLACEMENT_CARRE_Y, TAILLE_CARRE, TAILLE_CARRE), 2)
-                if self.constantes_parametrables["VILLE_CENTRALE"]:
+            if self.constantes_parametrables["VILLE_CENTRALE"]:
                     # Dessiner la ville
                     pygame.draw.rect(ecran, (255, 165, 0), pygame.Rect(EMPLACEMENT_VILLE_X, EMPLACEMENT_VILLE_Y, TAILLE_VILLE, TAILLE_VILLE), 2)
+                
 
 
 

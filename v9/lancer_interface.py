@@ -9,7 +9,7 @@ import le_cosmos
 # Via l'interface utilisateur
 parametres_de_base = {
         "NB_INDIVIDUS": 135,  # Nombre total d'individus dans la simulation
-        "VITESSE_MAX": 0.5,  # Vitesse maximale des individus. Influence la propagation.
+        "VITESSE_MAX": 0.35,  # Vitesse maximale des individus. Influence la propagation.
         "TAUX_INFECTIOSITE": 0.5,  # La probabilité d'être infecté. Entre 0 et 1.
         "TAUX_ASYMPTOMATIQUES": 0.55,  # La probabilité d'être asymptomatique et jamais envoyé en quarantaine. Entre 0 et 1.
         "LETALITE": 0.2,  # Chances de mourir du virus
@@ -49,12 +49,12 @@ class Parametres:
         self.label_mini_maxi = [
             ("Nombre d'individus", 1, 270),
             ("Vitesse maximale", 0.1, 1),
-            ("Taux d'infectiosité", 0.1, 1),
-            ("Taux d'asymptomatiques", 0.1, 1),
-            ("Létalité", 0.1, 1),
+            ("Taux d'infectiosité", 0, 1),
+            ("Taux d'asymptomatiques", 0, 1),
+            ("Létalité", 0, 1),
             ("Quarantaine", None, None),
             ("Distanciation", None, None),
-            ("Taux de dissidents", 0.1, 1),
+            ("Taux de dissidents", 0, 1),
             ("Ville centrale", None, None),
             ("Communautés", None, None),
             ("Probabilité de voyage vers la ville", 0, 1),
