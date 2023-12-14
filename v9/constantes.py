@@ -1,7 +1,7 @@
 # Constantes non paramétrables par l'utilisateur
 
 LARGEUR_ECRAN = 1450  # Largeur de la fenêtre de la simulation
-HAUTEUR_ECRAN = 900  # Hauteur de la fenêtre de la simulation
+HAUTEUR_ECRAN = 800  # Hauteur de la fenêtre de la simulation
 COULEUR_MUR = (0, 0, 0)  # Couleur des bords de la fenêtre de la simulation (en noir)
 COULEUR_FOND = (255, 255, 255)  # Couleur du fond de la fenêtre de la simulation (en blanc)
 TAILLE_INDIVIDU = 4  # Taille des individus représentés par des points
