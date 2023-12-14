@@ -1,6 +1,6 @@
 # 😷 Simulateur d'Epidemie Python 🐍
 
-![Logo](/doc/logo.png)
+![Logo](/doc/le_logo.png)
 
 ![Image Demo](/doc/la_demo.png)
 
