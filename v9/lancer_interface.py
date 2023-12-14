@@ -82,7 +82,7 @@ class Parametres:
         self.create_ui()
 
     def create_ui(self):
-        self.y_offset = 120
+        self.y_offset = 100
         self.elements = []
 
         for index, (nvar, label, min_val, max_val, default_val) in enumerate(self.constantes_liste):
