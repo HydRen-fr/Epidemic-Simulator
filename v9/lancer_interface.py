@@ -41,9 +41,9 @@ class Parametres:
         self.font = pygame.font.Font(None, 60)
 
         self.ui_manager = pygame_gui.UIManager((LARGEUR_ECRAN, HAUTEUR_ECRAN))
-        self.ui_manager.get_theme().load_theme('v9/horizontal_slider.json')
-        self.ui_manager.get_theme().load_theme('v9/slider_label.json')
-        self.ui_manager.get_theme().load_theme('v9/bool_button.json')
+        self.ui_manager.get_theme().load_theme('horizontal_slider.json')
+        self.ui_manager.get_theme().load_theme('slider_label.json')
+        self.ui_manager.get_theme().load_theme('bool_button.json')
         
 
         self.label_mini_maxi = [
@@ -70,7 +70,7 @@ class Parametres:
         self.nvar_current_values = {nvar: default_val for (nvar, _, _, _, default_val) in self.constantes_liste}
 
         # Chargement de l'image de la flèche retour et redimensionnement
-        original_arrow_image = pygame.image.load("v9/imgs/go_back_arrow.png")
+        original_arrow_image = pygame.image.load("imgs/go_back_arrow.png")
         new_width = 100
         new_height = 100
         self.arrow_image = pygame.transform.scale(original_arrow_image, (new_width, new_height))
