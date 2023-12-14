@@ -55,7 +55,7 @@ class Cosmos:
         self.nb_morts = 0
 
         # Chargement de l'image du bouton et redimensionnement
-        original_button_image = pygame.image.load("v9/imgs/parametres.png")
+        original_button_image = pygame.image.load("imgs/parametres.png")
         new_width = 145
         new_height = 145
         self.button_image = pygame.transform.scale(original_button_image, (new_width, new_height))
