@@ -170,6 +170,5 @@ if __name__ == '__main__':
     Lancement(parametres_de_base)
 
 
-# Nb de tours de boucle
 # Ecran de fin + récapitulatif
 # Un peu plus clair pour ma grand-mère

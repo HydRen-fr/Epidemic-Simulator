@@ -19,16 +19,18 @@ class Stats:
         # Police pour écrire
         self.font = pygame.font.Font(None, 36)
 
-    def afficher_statistiques(self, nb_bleus, nb_rouges, nb_verts, nb_morts):
+    def afficher_statistiques(self, nb_bleus, nb_rouges, nb_verts, nb_morts, nb_tours_boucle):
         # Afficher les statistiques en temps réel
         texte_bleus = self.font.render(f"Non exposés : {nb_bleus}", True, (0, 0, 255))
         texte_rouges = self.font.render(f"Infectés : {nb_rouges}", True, (255, 0, 0))
         texte_verts = self.font.render(f"Guéris : {nb_verts}", True, (0, 255, 0))
         texte_morts = self.font.render(f"Morts : {nb_morts}", True, (169, 169, 169))
+        texte_nb_tours_boucle = self.font.render(f"Repère temporel fictif : {int(nb_tours_boucle/5)}", True, (0, 0, 0))
         le_cosmos.ecran.blit(texte_bleus, (10, 10))
         le_cosmos.ecran.blit(texte_rouges, (10, 50))
         le_cosmos.ecran.blit(texte_verts, (10, 90))
         le_cosmos.ecran.blit(texte_morts, (10, 130))
+        le_cosmos.ecran.blit(texte_nb_tours_boucle, (10, 340))
 
     def actualiser_courbes(self, nb_bleus, nb_rouges, nb_verts, nb_morts, cosmos):
         # Ajouter les valeurs actuelles à l'historique

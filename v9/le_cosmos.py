@@ -53,6 +53,8 @@ class Cosmos:
 
         # Compteur des individus morts
         self.nb_morts = 0
+        # Compteur des tours de boucle
+        self.nb_tours_boucle = 0
 
         # Chargement de l'image du bouton et redimensionnement
         original_button_image = pygame.image.load("imgs/parametres.png")
@@ -110,6 +112,8 @@ class Cosmos:
     def simulation(self):
         # Boucle principale de la simulation
         while self.pas_de_changements:
+
+            self.nb_tours_boucle += 1
 
             # Permet de quitter sans problème en fermant la fenêtre
             for event in pygame.event.get():
@@ -212,7 +216,7 @@ class Cosmos:
             nb_verts = sum(1 for ind in self.individus if ind.couleur == (0, 255, 0))
             # nb_morts initialisé plus tôt et en attribut de la classe comme c'est linéaire
 
-            self.stats.afficher_statistiques(nb_bleus, nb_rouges, nb_verts, self.nb_morts)
+            self.stats.afficher_statistiques(nb_bleus, nb_rouges, nb_verts, self.nb_morts, self.nb_tours_boucle)
             self.stats.actualiser_courbes(nb_bleus, nb_rouges, nb_verts, self.nb_morts, self)
             self.stats.afficher_courbes()
 
