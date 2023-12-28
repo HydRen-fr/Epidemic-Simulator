@@ -99,12 +99,24 @@ Naturellement, on continue en testant si il y a de nouvelles collisions. Si oui 
 random est en-dessos d'une probabilité d'infection définie par l'utilisateur en paramètres alors on infecte (le non infecté devient rouge).
 L'utilité de tenir le compte des collisions en cours et donc déjà comptabilisées est que le programme comptait plusieurs fois la même collision avant.
 
-Pour finir on actualise les statistiques en temps réel de la simulation avec la classe Stats et ses méthodes au nom explicite :
-- afficher_statistiques
-- actualiser_courbes
-- afficher_courbes
+Pour finir on actualise les statistiques en temps réel de la simulation avec la classe Stats et ses méthodes aux noms explicites :
+- afficher_statistiques()
+- actualiser_courbes()
+- afficher_courbes()
 
 Le tour de boucle prend fin avec une mise à jour complète des modifications effectuées avec pygame.display.flip().
+
+---
+
+Pour le fonctionnement de la classe Parametres de lancer_interface.py, son interface utilise pygame_gui.
+On crée les éléments graphiques (sliders et boutons) dans la méthode create_ui() avec une boucle bornée for. Cette boucle utilise la fonction inclue dans
+python isinstance() pour déterminer le type des variables auxquelles elle a affaire :
+- bool ------> boutons
+- int ------> sliders.
+Puis la méthode run() permet de tout mettre en ordre et de modifier l'interface avec la méthode update_ui().
+De la même manière que à chaque tour de boucle dans la simulation de l'épidémie on vérifiait si l'utilisateur y mettait fin en accédant aux paramètres,
+on vérifie à chaque tour de la boucle while de la méthode run() de Parametres si l'utilisateur souhaite y mettre fin en retournant à la simulation.
+Si oui, on utilise alors les nouveaux paramètres et le tout recommence.
 
 
 
