@@ -113,6 +113,7 @@ On crée les éléments graphiques (sliders et boutons) dans la méthode create_
 python isinstance() pour déterminer le type des variables auxquelles elle a affaire :
 - bool ------> boutons
 - int ------> sliders.
+
 Puis la méthode run() permet de tout mettre en ordre et de modifier l'interface avec la méthode update_ui().
 De la même manière que à chaque tour de boucle dans la simulation de l'épidémie on vérifiait si l'utilisateur y mettait fin en accédant aux paramètres,
 on vérifie à chaque tour de la boucle while de la méthode run() de Parametres si l'utilisateur souhaite y mettre fin en retournant à la simulation.
