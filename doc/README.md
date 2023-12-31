@@ -76,7 +76,8 @@ Il ne reste plus que à dessiner l'essentiel : les points qui représentent les 
 Avant de faire cela, on fait un traitement afin d'actualiser le statut de chaque individu, aussi bien spatial que temporel (d'où le nom de cosmos).
 On filtre les morts avec l'attribut booléen vie de la classe Individu.
 On applique la distanciation sociale si besoin avec la méthode appliquer_distanciation(autres_individus) de Individu. Cette méthode
-utilise la bibliothèque math.
+utilise la bibliothèque math. 
+
 On fait ce que nous nommons la routine, c'est-à-dire un ensemble d'opérations nécessaires à la simulation sur chaque individu et à chaque tour de boucle :
 - Vérifications sur le statut de mort ou guéri
 - Placements en quarantaine
@@ -96,8 +97,8 @@ entre un non infecté (bleu ou vert) et un infecté (rouge). C'est une partie vi
 On commence par actualiser la liste de tuples d'objets de la classe Individu en collision. On utilise la méthode detecter_collision() de la classe
 Individu pour cela.
 Naturellement, on continue en testant si il y a de nouvelles collisions. Si oui et que un nombre tiré au hasard entre 0 et 1 avec la bibliothèque
-random est en-dessos d'une probabilité d'infection définie par l'utilisateur en paramètres alors on infecte (le non infecté devient rouge).
-L'utilité de tenir le compte des collisions en cours et donc déjà comptabilisées est que le programme comptait plusieurs fois la même collision avant.
+random est en-dessous d'une probabilité d'infection définie par l'utilisateur en paramètres alors on infecte (le non infecté devient rouge).
+L'utilité de tenir le compte des collisions en cours (et donc déjà comptabilisées) est que le programme comptait plusieurs fois la même collision avant.
 
 Pour finir on actualise les statistiques en temps réel de la simulation avec la classe Stats et ses méthodes aux noms explicites :
 - afficher_statistiques()
