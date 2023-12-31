@@ -168,7 +168,3 @@ class Parametres:
 
 if __name__ == '__main__':
     Lancement(parametres_de_base)
-
-
-# Ecran de fin + récapitulatif
-# Un peu plus clair pour ma grand-mère
