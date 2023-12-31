@@ -1,0 +1,2 @@
+- Ecran de fin + récapitulatif
+- Rendre la simulation plus claire pour des personnes qui n'y connaissent rien. Donner des noms aux choses.
