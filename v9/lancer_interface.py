@@ -145,6 +145,7 @@ class Parametres:
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.arrow_rect.collidepoint(event.pos):
                         # Relancer la simulation avec de nouveaux paramètres
+                        is_running = False
                         Lancement(self.nvar_current_values)
 
 
