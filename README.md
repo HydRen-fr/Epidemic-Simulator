@@ -2,30 +2,30 @@
 
 ![Image Demo](/doc/la_demo.png)
 
-**Epydemie** est un projet de **simulation d'épidémie** en **Python**. Il utilise la bibliothèque pygame.
+**Epydemie** is an epidemic simulation project in Python. It uses the pygame library.
 
-## 🔥 Fonctionnalités
+## 🔥 Features
 
-- Facile à utiliser et à prendre en main
-- Statistiques en temps réel
-- Plus d'une dizaine de paramètres modulables pour faire ses propres simulations
+- Easy to use and learn
+- Real-time statistics
+- More than a dozen customizable parameters for your own simulations
 
 ## 🔧 Installation
 
-- Téléchargez le dossier **v9** de ce répertoire qui contient tout le code source.
-- Ouvrez le dossier avec votre environnement de développement Python préféré.
-- Installez les dépendances en utilisant la commande :
+- Download the **v9** folder in this directory, which contains all the source code.
+- Open the folder with your favorite Python development environment.
+- Install the dependencies using the command :
     
 ```
 pip install -r requirements.txt
 ```
     
-- Une fois le tout installé, le programme peut être exécuté à partir de la ligne de commande : 
+- Once everything is installed, the program can be run from the command line: 
 
 ```
 python lancer_interface.py
 ```
 
-## Licence
+## License
 
-Epydemie est distribué sous la **licence libre GPL v3+**. Veuillez consulter le fichier LICENSE pour plus d'informations.
+Epydemie is distributed under the **Free Software License GPL v3+**. Please see the LICENSE file for more information.
